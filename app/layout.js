@@ -1,6 +1,7 @@
 import './globals.css'
 import ProvidersWrapper from '../components/Providers'
 import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export const metadata = {
   title: 'AdvertEase',
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
         <ProvidersWrapper>
           <Navbar />
           <main className="container mx-auto p-4">{children}</main>
+          <Footer />
         </ProvidersWrapper>
       </body>
     </html>
