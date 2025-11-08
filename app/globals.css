@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+/* basic fallback colors so linters without PostCSS don't error on @apply */
+body {
+  background-color: #f8fafc; /* tailwind bg-gray-50 */
+  color: #0f172a; /* tailwind text-gray-900 */
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.btn {
+  background-color: #2563eb; /* blue-600 */
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+  display: inline-block;
+}
+.btn:hover { background-color: #1e40af; }
+
+.input {
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.5rem;
+  width: 100%;
+}
