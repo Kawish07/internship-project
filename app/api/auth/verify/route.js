@@ -1,4 +1,4 @@
-import { connectToDB } from '../../../lib/mongodb'
+import { connectToDB } from '../../../../lib/mongodb'
 import User from '../../../../models/User'
 
 export async function GET(request) {

@@ -1,4 +1,4 @@
-import { connectToDB } from '../../../lib/mongodb'
+import { connectToDB } from '../../../../../lib/mongodb'
 import User from '../../../../../models/User'
 import crypto from 'crypto'
 
