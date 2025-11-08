@@ -20,10 +20,46 @@ export default function AdsList() {
   }, [])
 
   useEffect(() => {
-    const params = new URLSearchParams({ page, category })
-    if (q) params.set('q', q)
-    fetch(`/api/ads?${params.toString()}`).then(r=>r.json()).then(setAds)
-  }, [page, category])
+    const controller = new AbortController()
+    setAds(null)
+
+    ;(async () => {
+      try {
+        const params = new URLSearchParams({ page, category })
+        if (q) params.set('q', q)
+        const res = await fetch(`/api/ads?${params.toString()}`, { signal: controller.signal })
+        if (!res.ok) {
+          console.error('Failed to fetch ads', res.status)
+          setAds([])
+          return
+        }
+
+        // read text first to avoid JSON parse errors on empty responses
+        const text = await res.text()
+        if (!text) {
+          setAds([])
+          return
+        }
+
+        let data
+        try {
+          data = JSON.parse(text)
+        } catch (err) {
+          console.error('Invalid JSON from /api/ads', err)
+          setAds([])
+          return
+        }
+
+        setAds(data)
+      } catch (err) {
+        if (err.name === 'AbortError') return
+        console.error('Error fetching ads', err)
+        setAds([])
+      }
+    })()
+
+    return () => controller.abort()
+  }, [page, category, q])
 
   if (!ads) return (
     <div className="flex items-center justify-center min-h-[400px]">
